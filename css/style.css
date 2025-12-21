@@ -1,0 +1,235 @@
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+}
+
+:root {
+  --main-color: #ffffff;
+}
+
+::selection {
+  background-color: var(--main-color);
+  color: black;
+}
+
+html[lang="ar"] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="en"] {
+  direction: ltr;
+  text-align: left;
+}
+
+.page-background {
+  background-image: url("../images/mosque-8547944.jpg");
+  min-height: 100dvh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.page {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* | header | : */
+
+.navbar {
+  position: relative !important;
+  width: 100%;
+  background-color: transparent !important;
+  border-bottom: 2px solid var(--main-color);
+}
+
+.navbar-brand {
+  margin-right: 0px !important;
+  color: var(--main-color);
+}
+
+.navbar-brand i {
+  font-size: 2.7rem;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btns .lang-toggler,
+.btns .getLocationBtn {
+  margin-inline-end: 1vw;
+}
+
+.lang-toggler,
+.getLocationBtn {
+  padding: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.offcanvas {
+  background-color: transparent !important;
+  backdrop-filter: blur(10px);
+}
+
+html[lang="ar"] .btn-close {
+  margin-left: calc(-0.5 * var(--bs-offcanvas-padding-x));
+  margin-right: auto;
+}
+
+.offcanvas-title {
+  font-size: unset;
+}
+.offcanvas-title i {
+  font-size: 2.5rem;
+}
+
+.nav-item {
+  color: var(--main-color);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.nav-item i {
+  color: var(--main-color);
+  font-size: 1.3rem;
+  margin-inline-end: 1vw;
+}
+
+html[lang="ar"] .offcanvas-body ul {
+  padding-left: 1rem !important;
+  padding-right: unset !important;
+}
+
+/* | header | . */
+
+/* | content | : */
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3vh auto;
+}
+
+.content-title {
+  color: var(--main-color);
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: bold;
+  margin-bottom: 8vh;
+  margin-top: 3vh;
+}
+
+#use-my-location-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#use-my-location-btn i {
+  margin-inline-start: 0.5vw;
+}
+
+.divider {
+  width: 100%;
+  margin: 2.5vh 0;
+}
+hr.rounded {
+  border-top: 8px solid white;
+  border-radius: 5px;
+}
+
+.selection-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.choices {
+  margin-bottom: clamp(3vh, 5vw, 5vh) !important;
+  width: 100% !important;
+}
+
+.is-open {
+  z-index: 1031;
+}
+
+.choices__inner {
+  border-radius: 10px;
+}
+
+.choices__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+html[lang="ar"] .choices[data-type*="select-one"]::after {
+  right: auto !important;
+  left: 11.5px !important;
+}
+html[lang="en"] .choices[data-type*="select-one"]::after {
+  left: auto !important;
+  right: 11.5px !important;
+}
+
+.loading-section {
+  margin-top: 3vh !important;
+}
+
+/* | content | . */
+
+/* | footer | : */
+
+.footer {
+  border-top: 2px solid var(--main-color);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--main-color);
+  position: relative;
+  bottom: 0;
+}
+
+.footer div:first-child {
+  margin-bottom: 1vh;
+}
+
+/* | footer | . */

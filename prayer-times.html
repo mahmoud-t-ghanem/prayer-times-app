@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-en="MAWAQITI" data-ar="مواقيتي"></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./css/all.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/prayer-times.css" />
+  </head>
+  <body>
+    <div class="page-background">
+      <div class="overlay"></div>
+      <div class="page container-fluid">
+        <!-- | header | : -->
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/index.html"
+              ><i class="fa-solid fa-mosque nav-icon"></i
+            ></a>
+
+            <div class="btns">
+              <button class="navbar-toggler lang-toggler" id="lang-toggler">
+                En
+              </button>
+
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasDarkNavbar"
+                aria-controls="offcanvasDarkNavbar"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+
+            <div
+              class="offcanvas offcanvas-end text-bg-dark"
+              tabindex="-1"
+              id="offcanvasDarkNavbar"
+              aria-labelledby="offcanvasDarkNavbarLabel"
+            >
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+                  <i class="fa-solid fa-mosque nav-icon"></i>
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close btn-close-white"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <i class="fa-solid fa-clock"></i>
+                    <a
+                      class="nav-link active"
+                      aria-current="page"
+                      href="/index.html"
+                      data-en="Prayer Times"
+                      data-ar="مواقيت الصلاة"
+                    ></a>
+                  </li>
+
+                  <li class="nav-item">
+                    <i class="fa-solid fa-quran"></i>
+                    <a
+                      class="nav-link"
+                      href="https://islamicazkar.com/"
+                      target="_blank"
+                      data-en="Islamic Azkar"
+                      data-ar="أذكار إسلامية"
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- | header | . -->
+
+        <!-- | content | : -->
+        <div class="content container">
+          <div id="content-title" class="content-title"></div>
+
+          <div
+            id="prayer-times-section"
+            class="prayer-times-section"
+            style="display: none"
+          >
+            <div id="gregorian-date" class="gregorian-date"></div>
+            <div id="hijri-date" class="hijri-date"></div>
+            <div id="clock" class="clock"></div>
+            <div id="next-prayer" class="next-prayer"></div>
+            <div id="prayer-times" class="prayer-times"></div>
+          </div>
+
+          <div
+            id="loading-section"
+            class="loading-section text-center"
+            style="display: none"
+          >
+            <div class="spinner-grow text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <!-- | content | . -->
+
+        <!-- | footer | : -->
+        <footer class="footer py-2 px-2">
+          <div
+            class="container"
+            data-en="&copy; 2025 All rights reserved for MAWAQITI website"
+            data-ar="&copy; جميع الحقوق محفوظة لموقع مواقيتي"
+          ></div>
+          <div>Developed by Mahmoud Ghanem</div>
+        </footer>
+        <!-- | footer | . -->
+      </div>
+    </div>
+    <script src="javascript/bootstrap.bundle.min.js"></script>
+    <script src="javascript/axios.min.js"></script>
+    <script src="javascript/prayer-times.js"></script>
+  </body>
+</html>

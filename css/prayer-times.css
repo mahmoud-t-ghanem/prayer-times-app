@@ -1,0 +1,211 @@
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+:root {
+  --main-color: #ffffff;
+}
+
+body {
+  color: #ffffff;
+  font-family: "Cairo", sans-serif;
+}
+
+::selection {
+  background-color: var(--main-color);
+  color: black;
+}
+
+html[lang="ar"] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="en"] {
+  direction: ltr;
+  text-align: left;
+}
+
+.page-background {
+  background-image: url("../images/izzah-azilan-sxrXPADReUQ-unsplash.jpg");
+  min-height: 100dvh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.page {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* | header | : */
+
+.navbar {
+  position: relative !important;
+  width: 100%;
+  background-color: transparent !important;
+  border-bottom: 2px solid var(--main-color);
+}
+
+.navbar-brand {
+  margin-right: 0px !important;
+  color: var(--main-color);
+}
+
+.navbar-brand i {
+  font-size: 2.7rem;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btns .lang-toggler,
+.btns .getLocationBtn {
+  margin-inline-end: 1vw;
+}
+
+.lang-toggler {
+  padding: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.offcanvas {
+  background-color: transparent !important;
+  backdrop-filter: blur(10px);
+}
+
+html[lang="ar"] .btn-close {
+  margin-left: calc(-0.5 * var(--bs-offcanvas-padding-x));
+  margin-right: auto;
+}
+
+.offcanvas-title {
+  font-size: unset;
+}
+.offcanvas-title i {
+  font-size: 2.5rem;
+}
+
+.nav-item {
+  color: var(--main-color);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.nav-item i {
+  color: var(--main-color);
+  font-size: 1.3rem;
+  margin-inline-end: 1vw;
+}
+
+html[lang="ar"] .offcanvas-body ul {
+  padding-left: 1rem !important;
+  padding-right: unset !important;
+}
+
+/* | header | . */
+
+/* | content | : */
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3vh auto;
+  border: 2px solid var(--main-color);
+  border-radius: 20px;
+  padding: clamp(1.5vw, 5vw, 3vw);
+  font-size: clamp(0.9rem, 5vw, 1.2rem);
+}
+
+.content-title {
+  color: var(--main-color);
+  text-align: center;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: bold;
+  margin-bottom: 3vh;
+}
+
+.prayer-times-section {
+  width: 100%;
+}
+
+.next-prayer {
+  padding: 2vw;
+  border: 2px solid var(--main-color);
+  border-radius: 20px;
+  margin: 2vw auto;
+  text-align: center;
+  font-size: clamp(0.9rem, 5vw, 1.4em);
+}
+
+.prayer-time {
+  border: 2px solid var(--main-color);
+  border-radius: 20px;
+}
+
+.prayer-time .icon {
+  margin-bottom: 1vh;
+}
+
+.prayer-time .icon img {
+  width: clamp(50px, 7vw, 70px);
+  height: clamp(50px, 7vw, 70px);
+  filter: invert(1);
+}
+
+.prayer-time .text h5 {
+  font-size: clamp(0.9rem, 5vw, 1.4rem);
+}
+
+/* | content | . */
+
+/* | footer | : */
+
+.footer {
+  border-top: 2px solid var(--main-color);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--main-color);
+  position: relative;
+  bottom: 0;
+}
+
+.footer div:first-child {
+  margin-bottom: 1vh;
+}
+
+/* | footer | . */
