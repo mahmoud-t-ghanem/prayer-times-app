@@ -263,6 +263,8 @@ axios
             </div>
             
           </div>`;
+
+        document.getElementById("back-btn").style.display = "block";
       })
       .catch((error) => {
         alert(error);
