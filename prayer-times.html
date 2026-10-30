@@ -1,154 +1,176 @@
-<!DOCTYPE html>
-<html lang="ar">
+
+
+<!doctype html>
+<html lang="ar" dir="rtl" data-title="title.times">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-en="MAWAQITI" data-ar="مواقيتي"></title>
-
+    <title>مواقيت الصلاة</title>
+    <script>
+      (function () {
+        var d = document.documentElement;
+        var l = localStorage.getItem("lang") === "en" ? "en" : "ar";
+        d.lang = l;
+        d.dir = l === "ar" ? "rtl" : "ltr";
+        d.dataset.theme =
+          localStorage.getItem("theme") === "light" ? "light" : "dark";
+      })();
+    </script>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300..900&display=swap"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="./css/all.min.css" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/prayer-times.css" />
   </head>
-  <body>
-    <div class="page-background">
-      <div class="overlay"></div>
-      <div class="page container-fluid">
-        <!-- | header | : -->
-        <nav class="navbar navbar-dark bg-dark fixed-top">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="/index.html"
-              ><i class="fa-solid fa-mosque nav-icon"></i
-            ></a>
+  <body class="times-page">
+    <div id="app-header"></div>
 
-            <div class="btns">
-              <button class="navbar-toggler lang-toggler" id="lang-toggler">
-                En
-              </button>
+    <main class="times">
+      <div class="container">
+        <!-- Loading -->
+        <section id="state-loading" class="skeleton" aria-busy="true">
+          <div class="sk sk--title"></div>
+          <div class="sk sk--hero"></div>
+          <div class="sk-grid">
+            <div class="sk"></div>
+            <div class="sk"></div>
+            <div class="sk"></div>
+            <div class="sk"></div>
+            <div class="sk"></div>
+            <div class="sk"></div>
+          </div>
+          <p class="skeleton__text">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            <span data-i18n="times.loading"></span>
+          </p>
+        </section>
 
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasDarkNavbar"
-                aria-controls="offcanvasDarkNavbar"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
+        <!-- Error -->
+        <section id="state-error" class="error-card glass" hidden>
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <h2 data-i18n="times.error.title"></h2>
+          <p id="error-msg"></p>
+          <div class="row">
+            <button id="retry-btn" class="btn btn--primary" type="button">
+              <i class="fa-solid fa-rotate-right"></i>
+              <span data-i18n="times.retry"></span>
+            </button>
+            <a class="btn btn--ghost" href="index.html#search">
+              <span data-i18n="times.back"></span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Content -->
+        <div id="state-content" hidden>
+          <header class="place-head">
+            <p class="eyebrow" id="place-country-wrap">
+              <i class="fa-solid fa-location-dot"></i>
+              <span id="place-country"></span>
+            </p>
+            <h1>
+              <span data-i18n="times.in"></span>
+              <span id="place-name" class="accent-text"></span>
+            </h1>
+            <div class="chips">
+              <span class="chip"
+                ><i class="fa-solid fa-calendar-day"></i
+                ><span id="date-greg"></span
+              ></span>
+              <span class="chip"
+                ><i class="fa-solid fa-moon"></i><span id="date-hijri"></span
+              ></span>
+              <span class="chip"
+                ><i class="fa-solid fa-earth-africa"></i><span id="tz"></span
+              ></span>
+            </div>
+          </header>
+
+          <section class="now-card glass">
+            <div class="now-card__main">
+              <p class="label" data-i18n="times.next"></p>
+              <div class="next">
+                <i id="next-icon" class="fa-solid"></i>
+                <h2 id="next-name"></h2>
+                <span id="next-time" class="next__time"></span>
+              </div>
+              <div class="countdown" dir="ltr">
+                <div class="cd">
+                  <b id="cd-h">00</b><small data-i18n="unit.h"></small>
+                </div>
+                <div class="cd">
+                  <b id="cd-m">00</b><small data-i18n="unit.m"></small>
+                </div>
+                <div class="cd">
+                  <b id="cd-s">00</b><small data-i18n="unit.s"></small>
+                </div>
+              </div>
+              <div class="progress"><div id="progress-bar"></div></div>
             </div>
 
-            <div
-              class="offcanvas offcanvas-end text-bg-dark"
-              tabindex="-1"
-              id="offcanvasDarkNavbar"
-              aria-labelledby="offcanvasDarkNavbarLabel"
-            >
-              <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-                  <i class="fa-solid fa-mosque nav-icon"></i>
-                </h5>
+            <div class="now-card__side">
+              <p class="label" data-i18n="times.now"></p>
+              <div id="clock" class="clock"></div>
+              <div class="seg" role="group">
                 <button
+                  id="fmt12"
+                  class="seg__btn"
                   type="button"
-                  class="btn-close btn-close-white"
-                  data-bs-dismiss="offcanvas"
-                  aria-label="Close"
-                ></button>
-              </div>
-
-              <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                  <li class="nav-item">
-                    <i class="fa-solid fa-clock"></i>
-                    <a
-                      class="nav-link active"
-                      aria-current="page"
-                      href="/index.html"
-                      data-en="Prayer Times"
-                      data-ar="مواقيت الصلاة"
-                    ></a>
-                  </li>
-
-                  <li class="nav-item">
-                    <i class="fa-solid fa-quran"></i>
-                    <a
-                      class="nav-link"
-                      href="https://islamicazkar.com/"
-                      target="_blank"
-                      data-en="Islamic Azkar"
-                      data-ar="أذكار إسلامية"
-                    ></a>
-                  </li>
-                </ul>
+                  data-i18n-tip="times.fmt12"
+                >
+                  12
+                </button>
+                <button
+                  id="fmt24"
+                  class="seg__btn"
+                  type="button"
+                  data-i18n-tip="times.fmt24"
+                >
+                  24
+                </button>
               </div>
             </div>
-          </div>
-        </nav>
-        <!-- | header | . -->
+          </section>
 
-        <!-- | content | : -->
-        <div class="content container">
-          <div id="content-title" class="content-title"></div>
+          <section id="prayer-grid" class="prayer-grid"></section>
 
-          <div
-            id="prayer-times-section"
-            class="prayer-times-section"
-            style="display: none"
-          >
-            <div id="gregorian-date" class="gregorian-date"></div>
-            <div id="hijri-date" class="hijri-date"></div>
-            <div id="clock" class="clock"></div>
-            <div id="next-prayer" class="next-prayer"></div>
-            <div id="prayer-times" class="prayer-times"></div>
-          </div>
-
-          <div class="back-btn" id="back-btn" style="display: none">
-            <a
-              data-en="Back"
-              data-ar="عودة"
-              class="btn btn-outline-light btn-lg"
-              href="/index.html"
-            ></a>
-          </div>
-
-          <div
-            id="loading-section"
-            class="loading-section text-center"
-            style="display: none"
-          >
-            <div class="spinner-grow text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
+          <section class="info-row">
+            <article class="glass reminder">
+              <p class="eyebrow" data-i18n="times.reminder"></p>
+              <blockquote id="reminder-text"></blockquote>
+              <cite id="reminder-ref"></cite>
+            </article>
+            <article class="glass method">
+              <p>
+                <i class="fa-solid fa-calculator"></i> <span id="method"></span>
+              </p>
+              <div class="row">
+                <a class="btn btn--ghost" href="index.html#search">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <span data-i18n="times.back"></span>
+                </a>
+                <button
+                  id="refresh-btn"
+                  class="btn btn--ghost"
+                  type="button"
+                  data-i18n-tip="times.refresh"
+                >
+                  <i class="fa-solid fa-rotate-right"></i>
+                </button>
+              </div>
+            </article>
+          </section>
         </div>
-        <!-- | content | . -->
-
-        <!-- | footer | : -->
-        <footer class="footer py-2 px-2">
-          <div
-            class="container"
-            data-en="&copy; 2025 All rights reserved for MAWAQITI website"
-            data-ar="&copy; جميع الحقوق محفوظة لموقع مواقيتي"
-          ></div>
-          <div>Developed by Mahmoud Ghanem</div>
-        </footer>
-        <!-- | footer | . -->
       </div>
-    </div>
-    <script src="javascript/bootstrap.bundle.min.js"></script>
-    <script src="javascript/axios.min.js"></script>
-    <script src="javascript/prayer-times.js"></script>
+    </main>
+
+    <div id="app-footer"></div>
+
+    <script type="module" src="js/prayer-times.js"></script>
   </body>
 </html>

@@ -1,192 +1,158 @@
-<!DOCTYPE html>
-<html lang="ar">
+<!doctype html>
+<html lang="ar" dir="rtl" data-title="title.home">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-en="MAWAQITI" data-ar="مواقيتي"></title>
-
+    <meta
+      name="description"
+      content="مواقيتي - مواقيت الصلاة بدقة لأي مدينة في العالم | Mawaqiti - accurate prayer times for any city"
+    />
+    <title>مواقيتي</title>
+    <script>
+      (function () {
+        var d = document.documentElement;
+        var l = localStorage.getItem("lang") === "en" ? "en" : "ar";
+        d.lang = l;
+        d.dir = l === "ar" ? "rtl" : "ltr";
+        d.dataset.theme =
+          localStorage.getItem("theme") === "light" ? "light" : "dark";
+      })();
+    </script>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300..900&display=swap"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="./css/all.min.css" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/choices/choices.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/home.css" />
   </head>
-  <body>
-    <div class="page-background">
-      <div class="overlay"></div>
-      <div class="page container-fluid">
-        <!-- | header | : -->
-        <nav class="navbar navbar-dark bg-dark fixed-top">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="/index.html"
-              ><i class="fa-solid fa-mosque nav-icon"></i
-            ></a>
+  <body class="home">
+    <div id="app-header"></div>
 
-            <div class="btns">
-              <button id="getLocationBtn" class="getLocationBtn navbar-toggler">
-                <i class="fas fa-location-crosshairs"></i>
-              </button>
+    <main>
+      <!-- Hero + search -->
+      <section class="hero" id="search">
+        <div class="container hero__inner">
+          <span class="badge">
+            <i class="fa-solid fa-circle-check"></i>
+            <span data-i18n="hero.badge"></span>
+          </span>
+          <h1 class="hero__title" data-i18n="hero.title"></h1>
+          <p class="hero__sub" data-i18n="hero.sub"></p>
 
-              <button class="navbar-toggler lang-toggler" id="lang-toggler">
-                En
-              </button>
-
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasDarkNavbar"
-                aria-controls="offcanvasDarkNavbar"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            </div>
-
-            <div
-              class="offcanvas offcanvas-end text-bg-dark"
-              tabindex="-1"
-              id="offcanvasDarkNavbar"
-              aria-labelledby="offcanvasDarkNavbarLabel"
-            >
-              <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-                  <i class="fa-solid fa-mosque nav-icon"></i>
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close btn-close-white"
-                  data-bs-dismiss="offcanvas"
-                  aria-label="Close"
-                ></button>
-              </div>
-
-              <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                  <li class="nav-item">
-                    <i class="fa-solid fa-clock"></i>
-                    <a
-                      class="nav-link active"
-                      aria-current="page"
-                      href="/index.html"
-                      data-en="Prayer Times"
-                      data-ar="مواقيت الصلاة"
-                    ></a>
-                  </li>
-
-                  <li class="nav-item">
-                    <i class="fa-solid fa-quran"></i>
-                    <a
-                      class="nav-link"
-                      href="https://islamicazkar.com/"
-                      target="_blank"
-                      data-en="Islamic Azkar"
-                      data-ar="أذكار إسلامية"
-                    ></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <!-- | header | . -->
-
-        <!-- | content | : -->
-        <div class="content container">
-          <div
-            class="content-title"
-            data-en="Prayer Times"
-            data-ar="مواقيت الصلاة"
-          ></div>
-
-          <div class="use-my-location">
+          <div class="search-card glass">
             <button
+              id="use-location-btn"
+              class="btn btn--primary btn--lg"
               type="button"
-              class="btn btn-outline-light btn-lg"
-              id="use-my-location-btn"
             >
-              <span
-                data-en="Using my current location"
-                data-ar="استخدام موقعي الحالي"
-              ></span>
-              <i class="fas fa-location-crosshairs"></i>
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <span data-i18n="hero.useLocation"></span>
+            </button>
+
+            <div class="or"><span data-i18n="hero.or"></span></div>
+
+            <div class="search-card__fields">
+              <div id="country-combo"></div>
+              <div id="city-combo"></div>
+            </div>
+
+            <button
+              id="show-btn"
+              class="btn btn--ghost btn--lg"
+              type="button"
+              disabled
+            >
+              <span data-i18n="btn.show"></span>
+              <i class="fa-solid fa-arrow-right-long arrow"></i>
             </button>
           </div>
+        </div>
+      </section>
 
-          <div class="divider">
-            <hr class="rounded" />
-          </div>
-
-          <div class="selection-section" id="selection-section">
-            <select
-              name="countries"
-              id="country-select"
-              class="form-control"
-            ></select>
-            <select
-              name="cities"
-              id="city-select"
-              class="form-control"
-            ></select>
-            <button
-              type="button"
-              class="btn btn-outline-light btn-lg"
-              id="show-prayer-times-btn"
-              disabled
-              data-en="Show prayer times"
-              data-ar="عرض مواقيت الصلاة"
-            ></button>
-          </div>
-
-          <div
-            id="loading-section"
-            class="loading-section text-center"
-            style="display: none"
-          >
-            <div class="spinner-grow text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
+      <!-- Features -->
+      <section class="container features">
+        <div class="feature glass reveal is-visible">
+          <i class="fa-solid fa-stopwatch"></i>
+          <div>
+            <h3 data-i18n="feat.1.t"></h3>
+            <p data-i18n="feat.1.d"></p>
           </div>
         </div>
-        <!-- | content | . -->
+        <div class="feature glass reveal is-visible">
+          <i class="fa-solid fa-calendar-days"></i>
+          <div>
+            <h3 data-i18n="feat.2.t"></h3>
+            <p data-i18n="feat.2.d"></p>
+          </div>
+        </div>
+        <div class="feature glass reveal is-visible">
+          <i class="fa-solid fa-earth-americas"></i>
+          <div>
+            <h3 data-i18n="feat.3.t"></h3>
+            <p data-i18n="feat.3.d"></p>
+          </div>
+        </div>
+      </section>
 
-        <!-- | footer | : -->
-        <footer class="footer py-2 px-2">
-          <div
-            class="container"
-            data-en="&copy; 2025 All rights reserved for MAWAQITI website"
-            data-ar="&copy; جميع الحقوق محفوظة لموقع مواقيتي"
-          ></div>
-          <div>Developed by Mahmoud Ghanem</div>
-        </footer>
-        <!-- | footer | . -->
-      </div>
-    </div>
-    <script>
-      window.addEventListener("pageshow", function (event) {
-        if (
-          event.persisted ||
-          (window.performance && window.performance.navigation.type === 2)
-        ) {
-          window.location.reload();
-        }
-      });
-    </script>
-    <script src="javascript/axios.min.js"></script>
-    <script src="javascript/bootstrap.bundle.min.js"></script>
-    <script src="assets/choices/choices.min.js"></script>
-    <script src="javascript/main.js"></script>
+      <!-- Importance -->
+      <section class="section" id="importance">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="importance.eyebrow"></span>
+            <h2 data-i18n="importance.title"></h2>
+            <p data-i18n="importance.sub"></p>
+          </header>
+          <div class="grid grid--3" id="importance-grid"></div>
+        </div>
+      </section>
+
+      <!-- Five prayers -->
+      <section class="section" id="prayers">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="prayers.eyebrow"></span>
+            <h2 data-i18n="prayers.title"></h2>
+            <p data-i18n="prayers.sub"></p>
+          </header>
+          <div class="grid grid--chips" id="prayers-grid"></div>
+        </div>
+      </section>
+
+      <!-- Wudu -->
+      <section class="section" id="wudu">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="wudu.eyebrow"></span>
+            <h2 data-i18n="wudu.title"></h2>
+            <p data-i18n="wudu.sub"></p>
+          </header>
+          <ol class="steps" id="wudu-steps"></ol>
+        </div>
+      </section>
+
+      <!-- How to pray -->
+      <section class="section" id="guide">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="guide.eyebrow"></span>
+            <h2 data-i18n="guide.title"></h2>
+            <p data-i18n="guide.sub"></p>
+          </header>
+          <ol class="steps" id="guide-steps"></ol>
+          <p class="note glass">
+            <i class="fa-solid fa-circle-info"></i>
+            <span data-i18n="guide.note"></span>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div id="app-footer"></div>
+
+    <script type="module" src="js/home.js"></script>
   </body>
 </html>
