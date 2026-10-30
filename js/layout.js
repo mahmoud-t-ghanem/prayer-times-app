@@ -3,7 +3,7 @@ const CONTACT = [
   {
     key: "website",
     icon: "fa-solid fa-globe",
-    href: "https://your-website.com",
+    href: "https://mahmoud-t-ghanem.netlify.app/",
   },
   {
     key: "whatsapp",
