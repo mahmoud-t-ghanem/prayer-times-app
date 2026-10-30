@@ -27,12 +27,10 @@ cityCombo.setDisabled(true);
 let countries = [];
 let cityRequestId = 0;
 
-/* ---------- Location button ---------- */
 $("use-location-btn").addEventListener("click", (e) =>
   locateAndGo(e.currentTarget),
 );
 
-/* ---------- Countries ---------- */
 function countryOptions() {
   const lang = getLang();
   return countries
@@ -52,7 +50,6 @@ loadCountries()
   })
   .catch(() => showToast(t("select.countriesError"), "error"));
 
-/* ---------- Cities ---------- */
 async function loadCities(code) {
   const id = ++cityRequestId;
   cityCombo.setDisabled(true);
@@ -109,7 +106,6 @@ window.addEventListener("pageshow", () => {
   showBtn.disabled = !cityCombo.getSelected();
 });
 
-/* ---------- Static content ---------- */
 const io =
   "IntersectionObserver" in window
     ? new IntersectionObserver(
@@ -174,7 +170,6 @@ function renderContent(animate) {
 
 renderContent(true);
 
-/* ---------- Language change ---------- */
 onLangChange(() => {
   countryCombo.setOptions(countryOptions());
   countryCombo.refreshTexts();

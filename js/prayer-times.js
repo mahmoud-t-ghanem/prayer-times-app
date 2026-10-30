@@ -49,7 +49,6 @@ const state = {
   retryAt: 0,
 };
 
-/* ============ Views ============ */
 function show(view) {
   ["loading", "error", "content"].forEach(
     (v) => ($(`state-${v}`).hidden = v !== view),
@@ -62,7 +61,6 @@ function showError(key) {
   show("error");
 }
 
-/* ============ Time zone helpers ============ */
 function tzOffset(ts, tz) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: tz,
@@ -106,7 +104,6 @@ function todayInZone(tz) {
 
 const dateKeyOf = ({ y, m, d }) => `${y}-${m}-${d}`;
 
-/* ============ Formatting ============ */
 const fmt = (ts, opts) =>
   new Intl.DateTimeFormat(locale(), { timeZone: state.tz, ...opts }).format(ts);
 const timeOpts = () =>
@@ -123,7 +120,6 @@ const clockOpts = () =>
         hourCycle: "h23",
       };
 
-/* ============ Data ============ */
 async function getTimings() {
   let data = await fetchTimings(lat, lng);
   const today = todayInZone(data.meta.timezone);
@@ -184,7 +180,6 @@ function getNext(now) {
   return { next: s[i], prev: s[i - 1], idx: i, tomorrow: false };
 }
 
-/* ============ Rendering ============ */
 function renderPlace() {
   const { city, country } = state.place;
   const fallback = `${lat.toFixed(2)}°, ${lng.toFixed(2)}°`;
@@ -281,7 +276,6 @@ function tick() {
   $("progress-bar").style.width = `${(progress * 100).toFixed(1)}%`;
 }
 
-/* ============ Load ============ */
 async function load({ silent = false } = {}) {
   if (!validCoords) return showError("times.error.coords");
   if (!silent) show("loading");
@@ -311,7 +305,6 @@ async function load({ silent = false } = {}) {
   }
 }
 
-/* ============ Events ============ */
 function setFormat(use12) {
   state.use12 = use12;
   localStorage.setItem("fmt", use12 ? "12" : "24");

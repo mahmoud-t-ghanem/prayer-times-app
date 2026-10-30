@@ -69,7 +69,6 @@ export async function reverseGeocode(lat, lng, lang) {
   };
 }
 
-// date: "DD-MM-YYYY" (optional). Without a method, Aladhan picks one by location.
 export async function fetchTimings(lat, lng, date = "") {
   const url = `https://api.aladhan.com/v1/timings${date ? `/${date}` : ""}?latitude=${lat}&longitude=${lng}`;
   const json = await getJSON(url);
